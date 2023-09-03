@@ -1,0 +1,140 @@
+<%= render partial: 'components/header' %>
+<%= render partial: 'components/sidebar' %>
+
+<style>
+div.card{
+  margin-bottom: 40px;
+}
+#suhu, #kelembaban, #kebisingan, #lux, #debu, #amonia {
+  scroll-margin-top: 60px; 
+}
+li{
+  list-style: none;
+  flex: right;
+}
+</style>
+
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+            <svg class="bi"><use xlink:href="#calendar3"/></svg>
+            This week
+          </button>
+        </div>
+      </div>
+
+      <%# Grafik%>
+      <%# Akhir Grafik%>
+        <div id="suhu"  class="card">
+          <h5 class="card-header">Suhu</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col text-center">
+                <h1 class="card-title">70</h1>
+              </div>
+              <div class="col">
+                 <svg><use xlink:href="#icon-suhu"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div id="kelembaban" class="card">
+        <h5  class="card-header">Kelembaban</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="kebisingan" class="card">
+        <h5 class="card-header">Kebisingan</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lux" class="card">
+        <h5 class="card-header">Lux</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="debu" class="card">
+        <h5  class="card-header">Debu</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="amonia"class="card">
+        <h5  class="card-header">Amonia</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="col">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+    </div>
+<%= render partial: 'components/footer' %>

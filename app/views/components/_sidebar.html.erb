@@ -1,0 +1,99 @@
+<style>
+  #sensor-menu{
+    list-style: none;
+    opacity:80%;
+    margin-right:10px;
+  }
+  
+  #sensor-menu:hover{
+    list-style: none;
+    opacity: 100%;
+    background-color: rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+  }
+</style>
+<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+      <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="sidebarMenuLabel">MTM Monitoring</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/dashboard">
+                <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                Dashboard
+              </a>
+              <ul>
+                <li id="sensor-menu">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard#suhu">
+                  <svg class="bi"><use xlink:href="#icon-suhu"/></svg>
+                    Suhu
+                  </a>
+                </li>
+                <li id="sensor-menu">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard#kelembaban">
+                  <svg class="bi"><use xlink:href="#icon-kelembaban"/></svg>
+                    Kelembaban
+                  </a>
+                </li>
+                <li id="sensor-menu">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard#kebisingan">
+                  <svg class="bi"><use xlink:href="#icon-kebisingan"/></svg>
+                    Kebisingan
+                  </a>
+                </li>
+                <li id="sensor-menu">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard#lux">
+                  <svg class="bi"><use xlink:href="#icon-lux"/></svg>
+                    Lux
+                  </a>
+                </li>
+                <li id="sensor-menu">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard#debu">
+                  <svg class="bi"><use xlink:href="#icon-debu"/></svg>
+                    Debu
+                  </a>
+                </li>
+                <li id="sensor-menu">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard#amonia">
+                  <svg class="bi"><use xlink:href="#icon-amonia"/></svg>
+                    Amonia
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="/report">
+                <svg class="bi"><use xlink:href="#graph-up"/></svg>
+                Reports
+              </a>
+            </li>
+          </ul>
+          <hr class="my-3">
+          <ul class="nav flex-column mb-auto">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="/profile">
+                <svg class="bi"><use xlink:href="#profile"/></svg>
+                <%= session['sess']['nama'] %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="/setting">
+                <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
+                Settings
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                <svg class="bi"><use xlink:href="#door-closed"/></svg>
+                Sign out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+

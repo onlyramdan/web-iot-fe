@@ -1,0 +1,50 @@
+<style>
+  fieldset label{
+    margin-left: 20px;
+  }
+</style>
+
+<%= render partial: "components/header"  %>
+<%= render partial: "components/sidebar"  %>
+<div class="card text-center mt-4 ">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="#">Akun</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link acticve" href="#">Form</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col text-start">
+          <%# data %>
+        <fieldset disabled>
+          <div class="mb-3">
+            <label for="disabledTextInput" class="form-label ">Email</label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['email'] %>">
+          </div>
+          <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Password</label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+          </div>
+          <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Role</label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['role']%>">
+          </div>
+        </fieldset>
+         <button class="btn btn-primary">Edit</button>
+    <%# Akhir data %>
+      </div>
+      <div class="col">
+          <svg height="80px" id="gambar-profile"><use xlink:href="#profile"/></svg>
+          <h5 class="card-title mt-3"> Nama</h5>
+      </div>
+    </div>
+   
+  </div>
+</div>
+<%= render partial: "components/footer"  %>
+

@@ -1,0 +1,41 @@
+<style>
+    .container{
+        padding-top: 80px;
+    }
+     @media (min-width: 768px) {
+      .card {
+        width: 500px;
+        }
+    }
+
+</style>
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <main class="form-signin w-100 m-auto">
+                    <div class="card position-absolute top-50 start-50 translate-middle">
+                        <div class="card-body">
+                            <form action="/aksi_signup" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nama" class="form-label">Name</label>
+                                    <input name="nama" type="text" class="form-control" id="nama">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn mt-5 btn-primary">Sign Up</button>
+                            </form>  
+                        </div>
+                    </div>
+                 </main>
+            </div>
+        </div>
+    </div>
+</body>

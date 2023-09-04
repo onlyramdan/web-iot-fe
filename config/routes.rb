@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
 
   get "/login" => "login#index"
+  get "/aksi_signout" => "login#logout"
   post "/aksi_login" => "login#login"
   resource :login
 

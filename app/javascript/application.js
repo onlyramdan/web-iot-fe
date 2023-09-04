@@ -4,3 +4,6 @@ import "controllers"
 // bootstrap
 import "bootstrap"
 import "popper"
+
+import "jquery"
+import "jquery_ujs"

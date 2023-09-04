@@ -7,6 +7,7 @@ ruby "3.0.0"
 
 #bootstrap
 gem 'bootstrap'
+gem "sassc-rails"
 
 #jquery
 gem 'jquery-rails'

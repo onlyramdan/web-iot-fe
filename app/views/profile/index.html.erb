@@ -10,10 +10,10 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="#">Akun</a>
+        <a class="nav-link active" aria-current="true" id="tabakun" href="#">Akun</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link acticve" href="#">Form</a>
+        <a class="nav-link acticve" id="tabform" href="#">Form</a>
       </li>
     </ul>
   </div>
@@ -21,30 +21,87 @@
     <div class="row">
       <div class="col text-start">
           <%# data %>
-        <fieldset disabled>
+      <form>
+        <fieldset disabled id="biodata">
           <div class="mb-3">
             <label for="disabledTextInput" class="form-label ">Email</label>
             <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['email'] %>">
           </div>
           <div class="mb-3">
             <label for="disabledTextInput" class="form-label">Password</label>
-            <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['password']%>">
           </div>
           <div class="mb-3">
             <label for="disabledTextInput" class="form-label">Role</label>
             <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['role']%>">
           </div>
         </fieldset>
-         <button class="btn btn-primary">Edit</button>
+        <fieldset hidden id="formbiodata">
+          <div class="mb-3" hidden >
+            <input name="id" type="text" id="disabledTextInput" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Nama</label>
+            <input name="nama" type="text" id="disabledTextInput" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="disabledTextInput" class="form-label ">Email</label>
+            <input name="email" type="text" id="disabledTextInput" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Password</label>
+            <input name="password" type="text" id="disabledTextInput" class="form-control">
+          </div>
+        </fieldset>
+         <button class="btn btn-primary" id="btnform">Edit</button>
+         <button type="submit" class="btn btn-primary" hidden id="btnsimpan">simpan</button>
+      </form>
     <%# Akhir data %>
       </div>
       <div class="col">
           <svg height="80px" id="gambar-profile"><use xlink:href="#profile"/></svg>
-          <h5 class="card-title mt-3"> Nama</h5>
+          <h5 class="card-title mt-3"><%= session['sess']['nama'] %></h5>
       </div>
     </div>
    
   </div>
 </div>
+
+
+<script>
+const tabakun = document.getElementById('tabakun');
+const tabform = document.getElementById('tabform');
+const btnform = document.getElementById('btnform');
+const biodata = document.getElementById('biodata');
+const formbiodata = document.getElementById('formbiodata');
+
+btnform.addEventListener('click', function() {
+  tabakun.classList.remove('active');
+  tabform.classList.add('active');
+  btnform.hidden = true;
+  biodata.hidden = true;
+  btnsimpan.hidden = false;
+  formbiodata.hidden = false;
+})
+
+tabform.addEventListener('click', function() {
+  tabakun.classList.remove('active');
+  tabform.classList.add('active');
+  btnform.hidden = true;
+  biodata.hidden = true;
+  btnsimpan.hidden = false;
+  formbiodata.hidden = false;
+})
+tabakun.addEventListener('click', function() {
+  tabakun.classList.add('active');
+  tabform.classList.remove('active');
+  btnform.hidden = false;
+  biodata.hidden = false;
+  btnsimpan.hidden = true;
+  formbiodata.hidden = true;
+})
+
+
+</script>
 <%= render partial: "components/footer"  %>
 

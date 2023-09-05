@@ -2,106 +2,114 @@
   fieldset label{
     margin-left: 20px;
   }
+  form label{
+    margin-left: 20px;
+  }
+
 </style>
 
 <%= render partial: "components/header"  %>
 <%= render partial: "components/sidebar"  %>
-<div class="card text-center mt-4 ">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" id="tabakun" href="#">Akun</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link acticve" id="tabform" href="#">Form</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col text-start">
-          <%# data %>
-      <form>
-        <fieldset disabled id="biodata">
-          <div class="mb-3">
-            <label for="disabledTextInput" class="form-label ">Email</label>
-            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['email'] %>">
+
+<div class="card text-center mt-4">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="true">Akun</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false">Form</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content mt-3">
+        <div class="tab-pane active" id="data" role="tabpanel" aria-labelledby="data-tab">
+        <div class="row">
+          <div class="col text-start">
+            <fieldset disabled id="biodata">
+              <div class="mb-3">
+                <label for="datanama" class="form-label ">Nama</label>
+                <input type="text" id="datanama" class="form-control" placeholder="<%= @profile['nama'] %>">
+              </div>
+              <div class="mb-3">
+                <label for="dataemail" class="form-label ">Email</label>
+                <input type="text" id="dataemail" class="form-control" placeholder="<%= @profile['email'] %>">
+              </div>
+              <div class="mb-3">
+                <label for="datapassword" class="form-label">Password</label>
+                <input type="text" id="datapassword" class="form-control" placeholder="<%= @profile['password']%>">
+              </div>
+              <div class="mb-3">
+                <label for="datarole" class="form-label">Role</label>
+                <input type="text" id="datarole" class="form-control" placeholder="<%= @profile['user_role']%>">
+              </div>
+            </fieldset>
+            <button class="btn btn-primary" id="aksi_id" onclick="aksi('<%= @profile.to_json %>')" title="Edit">Edit</button>
           </div>
-          <div class="mb-3">
-            <label for="disabledTextInput" class="form-label">Password</label>
-            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['password']%>">
+          <div class="col">
           </div>
-          <div class="mb-3">
-            <label for="disabledTextInput" class="form-label">Role</label>
-            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= session['sess']['role']%>">
+        </div>
+        </div>
+        <div class="tab-pane" id="form" role="tabpanel" aria-labelledby="form-tab">
+          <div class="row">
+            <div class="col text-start">
+              <form id="form-data">
+                <div class="mb-3">
+                  <label for="nama" class="form-label ">Nama</label>
+                  <input type="text" id="id" class="form-control" name="id" hidden>
+                  <input type="text" id="nama" class="form-control" name="nama">
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label ">Email</label>
+                  <input type="text" id="email" class="form-control" name="email">
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="text" id="password" class="form-control" name="password">
+                </div>
+              </form>
+              <button class="btn btn-primary" id="aksi_simpan" title="Simpan" onclick="simpan()" >Simpan</button>
+            </div>
+            <div class="col">
+            </div>
           </div>
-        </fieldset>
-        <fieldset hidden id="formbiodata">
-          <div class="mb-3" hidden >
-            <input name="id" type="text" id="disabledTextInput" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label for="disabledTextInput" class="form-label">Nama</label>
-            <input name="nama" type="text" id="disabledTextInput" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label for="disabledTextInput" class="form-label ">Email</label>
-            <input name="email" type="text" id="disabledTextInput" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label for="disabledTextInput" class="form-label">Password</label>
-            <input name="password" type="text" id="disabledTextInput" class="form-control">
-          </div>
-        </fieldset>
-         <button class="btn btn-primary" id="btnform">Edit</button>
-         <button type="submit" class="btn btn-primary" hidden id="btnsimpan">simpan</button>
-      </form>
-    <%# Akhir data %>
-      </div>
-      <div class="col">
-          <svg height="80px" id="gambar-profile"><use xlink:href="#profile"/></svg>
-          <h5 class="card-title mt-3"><%= session['sess']['nama'] %></h5>
+        </div>
       </div>
     </div>
-   
-  </div>
 </div>
 
-
 <script>
-const tabakun = document.getElementById('tabakun');
-const tabform = document.getElementById('tabform');
-const btnform = document.getElementById('btnform');
-const biodata = document.getElementById('biodata');
-const formbiodata = document.getElementById('formbiodata');
-
-btnform.addEventListener('click', function() {
-  tabakun.classList.remove('active');
-  tabform.classList.add('active');
-  btnform.hidden = true;
-  biodata.hidden = true;
-  btnsimpan.hidden = false;
-  formbiodata.hidden = false;
-})
-
-tabform.addEventListener('click', function() {
-  tabakun.classList.remove('active');
-  tabform.classList.add('active');
-  btnform.hidden = true;
-  biodata.hidden = true;
-  btnsimpan.hidden = false;
-  formbiodata.hidden = false;
-})
-tabakun.addEventListener('click', function() {
-  tabakun.classList.add('active');
-  tabform.classList.remove('active');
-  btnform.hidden = false;
-  biodata.hidden = false;
-  btnsimpan.hidden = true;
-  formbiodata.hidden = true;
-})
+function simpan(){
+  var data_form = $('#form-data').serialize()
+  console.log(data_form);
+  $.ajax({
+    url: '/profile/aksi_edit',
+    dataType: 'JSON',
+    type: 'POST',
+    data: data_form,
+    success: function (res){
+      console.log(res);
+    },
+    error: function (res) {
+      console.log(res);
+    }
+  })
+}
 
 
+function aksi(data) {
+  parse = JSON.parse(data);
+  // console.log(parse.id);
+  $('#id').val(parse.id)
+  $('#nama').val(parse.nama)
+  $('#email').val(parse.email)
+  $('#password').val(parse.password)
+
+  $('#form-tab').tab('show'); 
+}
 </script>
+
+
 <%= render partial: "components/footer"  %>
 

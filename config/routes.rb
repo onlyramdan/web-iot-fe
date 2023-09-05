@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resource :setting
 
   get "/profile" => "profile#index"
+  post "/profile/aksi_edit" => "profile#edit"
   resource :profile
 
   get "/report" => "report#index"

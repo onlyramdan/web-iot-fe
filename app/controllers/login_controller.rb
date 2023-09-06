@@ -1,5 +1,9 @@
 class LoginController < ApplicationController
+
     def index
+        if session['sess'].present?
+            redirect_to '/dashboard'
+        end
     end
     def login
         data = {

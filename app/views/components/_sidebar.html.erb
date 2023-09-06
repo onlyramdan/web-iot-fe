@@ -10,6 +10,10 @@
     background-color: rgba(128, 128, 128, 0.3);
     border-radius: 10px;
   }
+  main {
+    margin-bottom: 320px;
+  
+  }
 </style>
 <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
       <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
@@ -63,12 +67,14 @@
                 </li>
               </ul>
             </li>
+            <% if session['sess']['role']=="admin"%>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="/report">
                 <svg class="bi"><use xlink:href="#graph-up"/></svg>
                 Reports
               </a>
             </li>
+            <% end %>
           </ul>
           <hr class="my-3">
           <ul class="nav flex-column mb-auto">
@@ -78,12 +84,14 @@
                 <%= session['sess']['nama'] %>
               </a>
             </li>
+          <% if session['sess']['role']=="admin"%>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="/setting">
                 <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
                 Settings
               </a>
             </li>
+          <% end %>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="/aksi_signout">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>

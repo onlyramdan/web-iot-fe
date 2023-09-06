@@ -5,7 +5,14 @@
   form label{
     margin-left: 20px;
   }
-
+  #data, #form {
+    scroll-margin-top: 100%;
+  }
+  @media (min-width: 768px){
+    .row input{
+      width: 500px;
+    }
+  }
 </style>
 
 <%= render partial: "components/header"  %>
@@ -15,10 +22,10 @@
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
-          <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="true">Akun</a>
+          <p class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="true" onclick="batal()">Akun</p>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false">Form</a>
+          <p class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false" onclick="tabedit('<%= @profile.to_json %>')">Form</p>
         </li>
       </ul>
     </div>
@@ -47,8 +54,6 @@
             </fieldset>
             <button class="btn btn-primary" id="aksi_id" onclick="aksi('<%= @profile.to_json %>')" title="Edit">Edit</button>
           </div>
-          <div class="col">
-          </div>
         </div>
         </div>
         <div class="tab-pane" id="form" role="tabpanel" aria-labelledby="form-tab">
@@ -71,8 +76,6 @@
               </form>
               <button class="btn btn-primary" id="aksi_simpan" title="Simpan" onclick="simpan()" >Simpan</button>
             </div>
-            <div class="col">
-            </div>
           </div>
         </div>
       </div>
@@ -90,13 +93,15 @@ function simpan(){
     data: data_form,
     success: function (res){
       console.log(res);
+      if(res.status == true){
+        window.location.href = '/aksi_signout';
+      }
     },
     error: function (res) {
       console.log(res);
     }
   })
 }
-
 
 function aksi(data) {
   parse = JSON.parse(data);
@@ -108,6 +113,21 @@ function aksi(data) {
 
   $('#form-tab').tab('show'); 
 }
+function tabedit(data) {
+  parse = JSON.parse(data);
+  // console.log(parse.id);
+  $('#id').val(parse.id)
+  $('#nama').val(parse.nama)
+  $('#email').val(parse.email)
+  $('#password').val(parse.password)
+
+  $('#form-tab').tab('show'); 
+}
+
+function batal() {
+  $('#data-tab').tab('show');
+}
+
 </script>
 
 

@@ -1,19 +1,96 @@
 <%= render partial: "components/header"  %>
 <%= render partial: "components/sidebar"  %>
-<div class="card text-center mt-4 ">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="#">Data</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link acticve" href="#">Report</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    table
-  </div>
+<div class="card text-center mt-4">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <p class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="true" onclick="batal()">Data</p>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false" onclick="tabedit('<%= @profile.to_json %>')">Report</p>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content mt-3">
+        <div class="tab-pane active" id="data" role="tabpanel" aria-labelledby="data-tab">
+        <div class="row">
+          <div class="col text-start">
+            <button class="btn btn-primary" id="aksi_id" onclick="aksi('')" title="Edit">Edit</button>
+          </div>
+        </div>
+        </div>
+        <div class="tab-pane" id="form" role="tabpanel" aria-labelledby="form-tab">
+          <div class="row">
+            <div class="col text-start">
+              <form id="form-data">
+                <div class="mb-3">
+                  <label for="nama" class="form-label ">Nama</label>
+                  <input type="text" id="id" class="form-control" name="id" hidden>
+                  <input type="text" id="nama" class="form-control" name="nama">
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label ">Email</label>
+                  <input type="text" id="email" class="form-control" name="email">
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="text" id="password" class="form-control" name="password">
+                </div>
+              </form>
+              <button class="btn btn-primary" id="aksi_simpan" title="Simpan" onclick="simpan()" >Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+<script>
+function simpan(){
+  var data_form = $('#form-data').serialize()
+  console.log(data_form);
+  $.ajax({
+    url: '/profile/aksi_edit',
+    dataType: 'JSON',
+    type: 'POST',
+    data: data_form,
+    success: function (res){
+      console.log(res);
+      if(res.status == true){
+        window.location.href = '/aksi_signout';
+      }
+    },
+    error: function (res) {
+      console.log(res);
+    }
+  })
+}
+
+function aksi(data) {
+  parse = JSON.parse(data);
+  // console.log(parse.id);
+  $('#id').val(parse.id)
+  $('#nama').val(parse.nama)
+  $('#email').val(parse.email)
+  $('#password').val(parse.password)
+
+  $('#form-tab').tab('show'); 
+}
+function tabedit(data) {
+  parse = JSON.parse(data);
+  // console.log(parse.id);
+  $('#id').val(parse.id)
+  $('#nama').val(parse.nama)
+  $('#email').val(parse.email)
+  $('#password').val(parse.password)
+
+  $('#form-tab').tab('show'); 
+}
+
+function batal() {
+  $('#data-tab').tab('show');
+}
+</script>
+
 <%= render partial: "components/footer"  %>
 

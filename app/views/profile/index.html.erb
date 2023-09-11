@@ -105,17 +105,14 @@ function simpan(){
 
 function aksi(data) {
   parse = JSON.parse(data);
-  // console.log(parse.id);
   $('#id').val(parse.id)
   $('#nama').val(parse.nama)
   $('#email').val(parse.email)
   $('#password').val(parse.password)
-
   $('#form-tab').tab('show'); 
 }
 function tabedit(data) {
   parse = JSON.parse(data);
-  // console.log(parse.id);
   $('#id').val(parse.id)
   $('#nama').val(parse.nama)
   $('#email').val(parse.email)

@@ -1,0 +1,18 @@
+<div>
+  <ul class="pagination">
+    <% if @meta['prev_page'].present? %>
+      <li class="page-item"><a class="page-link" href="?page=<%= @meta['prev_page'].to_s %>">Previous</a></li>
+    <% end %>
+
+    <% if @meta['total_pages'].to_i > 1 %>
+      <% (1..@meta['total_pages'].to_i).each do |i| %>
+        <% var = (@meta['current_page'].to_i == i) ? 'active' : '' %>
+        <li class="page-item <%= var %>"><a class="page-link" href="?page=<%= i.to_s %>"><%= i %></a></li>
+      <% end %>
+    <% end %>
+
+    <% if @meta['next_page'].present? %>
+      <li class="page-item"><a class="page-link" href="?page=<%= @meta['next_page'].to_s %>">Next</a></li>
+    <% end %>
+  </ul>
+</div>

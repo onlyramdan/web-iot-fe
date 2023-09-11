@@ -13,98 +13,78 @@
           <p class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="true" onclick="batal()">Data</p>
         </li>
         <li class="nav-item">
-          <p class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false" onclick="tabedit('<%= @profile.to_json %>')">Reports</p>
+          <p class="nav-link" id="repot-tab" data-toggle="tab" href="#repot" role="tab" aria-controls="report" aria-selected="false" onclick="tabrepot()">Reports</p>
         </li>
       </ul>
     </div>
     <div class="card-body">
       <div class="tab-content mt-3">
         <div class="tab-pane active" id="data" role="tabpanel" aria-labelledby="data-tab">
-        <div class="row">
-          <div class="col text-start">
-          <%# Table %>
-          <table class="table table-hover table-bordered mx-0">
-            <thead class="thead">
-              <tr>
-                <td>No.</td>
-                <td>Waktu</td>
-                <td>Suhu</td>
-                <td>kelembaban</td>
-                <td>Kebisingan</td>
-                <td>lux</td>
-                <td>Debu</td>
-                <td>Amonia</td>
-                <td>Alat</td>
-              </tr>
-            </thead>
-            <tbody>
-          <%if @data.present? %>
-            <% @data.each_with_index do |data, index| %>
-              <tr>
-                <td><%= index + 1 %></td>
-                <td><%= data['waktu'] %></td>
-                <td><%= data['suhu'] %></td>
-                <td><%= data['kelembaban'] %></td>
-                <td><%= data['kebisingan'] %></td>
-                <td><%= data['lux'] %></td>
-                <td><%= data['debu'] %></td>
-                <td><%= data['amonia'] %></td>
-                <td><%= data['alat'] %></td>
-              </tr>
-              <%end%>
-            <% else %>
-              <tr>
-                 <td class="text-center" colspan="9">Data Monitoring Kosong!</td>
-              </tr>
-            <%end%>
-            </tbody>
-          </table>
-          <%# Akhir Table %>
-          </div>
-        </div>
-        </div>
-        <div class="tab-pane" id="form" role="tabpanel" aria-labelledby="form-tab">
           <div class="row">
             <div class="col text-start">
-              <form id="form-data">
-                <div class="mb-3">
-                  <label for="nama" class="form-label ">Nama</label>
-                  <input type="text" id="id" class="form-control" name="id" hidden>
-                  <input type="text" id="nama" class="form-control" name="nama">
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label ">Email</label>
-                  <input type="text" id="email" class="form-control" name="email">
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="text" id="password" class="form-control" name="password">
-                </div>
-              </form>
-              <button class="btn btn-primary" id="aksi_simpan" title="Simpan" onclick="simpan()" >Simpan</button>
+            <%# Table %>
+            <table class="table table-hover table-bordered mx-0">
+              <thead class="thead">
+                <tr>
+                  <td>No.</td>
+                  <td>Waktu</td>
+                  <td>Suhu</td>
+                  <td>kelembaban</td>
+                  <td>Kebisingan</td>
+                  <td>lux</td>
+                  <td>Debu</td>
+                  <td>Amonia</td>
+                  <td>Alat</td>
+                </tr>
+              </thead>
+              <tbody>
+            <%if @data.present? 
+            @no = 0
+            %>
+              <% @data.each_with_index  do |data, index| %>
+                <tr>
+                  <td><%= @no+= 1  %></td>
+                  <td><%= data['waktu'] %></td>
+                  <td><%= data['suhu'] %></td>
+                  <td><%= data['kelembaban'] %></td>
+                  <td><%= data['kebisingan'] %></td>
+                  <td><%= data['lux'] %></td>
+                  <td><%= data['debu'] %></td>
+                  <td><%= data['amonia'] %></td>
+                  <td><%= data['alat'] %></td>
+                </tr>
+                <%end%>
+              <% else %>
+                <tr>
+                  <td class="text-center" colspan="9">Data Monitoring Kosong!</td>
+                </tr>
+              <%end%>
+              </tbody>
+            </table>
+            <%# Akhir Table %>
+            </div>
+          </div>
+        <%= render partial: "components/pagging"%>
+        </div>
+        <div class="tab-pane" id="repot" role="tabpanel" aria-labelledby="repot-tab">
+          <div class="row">
+            <div class="col text-start">
+              <br>
+               repot data
             </div>
           </div>
         </div>
+      
       </div>
     </div>
 </div>
-<%# untuk Akun %>
-<div class="card text-center mt-4 ">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="#">Akun</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Form</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+<script>
+function batal() {
+  $('#data-tab').tab('show');
+}
+function tabrepot() {
+  $('#repot-tab').tab('show');
+}
+</script>
 <%= render partial: "components/footer" %>
 

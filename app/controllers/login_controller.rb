@@ -12,7 +12,7 @@ class LoginController < ApplicationController
         }
         url = "/login"
         @ceklogin = LoginHelper.req_post(url,data)
-        if @ceklogin['status']
+        if @ceklogin['status']==true
             my_sess = {
                 id: @ceklogin['content']['id'],
                 nama: @ceklogin['content']['nama'],
@@ -21,7 +21,7 @@ class LoginController < ApplicationController
                 role: @ceklogin['content']['user_role']
             }
             session['sess'] = my_sess
-            redirect_to "/dashboard"
+            redirect_to "/dashboard", notice:@ceklogin['message']
         else
             render json: @ceklogin
         end

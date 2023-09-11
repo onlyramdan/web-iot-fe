@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resource :dashbord
 
   get "/setting" => "setting#index"
+  post "/aksi_simpan" => "setting#simpan"
+  post "/hapus_alat" => "setting#hapus_alat"
   resource :setting
 
   get "/profile" => "profile#index"

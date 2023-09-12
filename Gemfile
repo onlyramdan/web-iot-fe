@@ -2,7 +2,6 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.0"
-
 #gem fe
 
 #bootstrap
@@ -11,6 +10,7 @@ gem "sassc-rails"
 
 #jquery
 gem 'jquery-rails'
+gem 'sprockets'
 
 #httparty
 gem 'httparty'

@@ -13,4 +13,11 @@ module SettingHelper
         )
         return res.parsed_response
     end
+    def self.req_post_hapus(url_path)
+        Rails.logger.info"====== helper=========>#{url_path}"
+        url = ENV['API_IoT']+url_path
+        Rails.logger.info"====== helper=========>#{url}"
+        res = HTTParty.post(url)
+        return res.parsed_response
+    end
 end

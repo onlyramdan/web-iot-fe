@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   get "/setting" => "setting#index"
   post "/aksi_simpan" => "setting#simpan"
-  post "/hapus_alat" => "setting#hapus_alat"
+  post "/user_simpan" => "setting#simpan_user"
+  post "/aksi_hapusalat" => "setting#hapus_alat"
+  post "/aksi_hapususer" => "setting#hapus_user"
   resource :setting
 
   get "/profile" => "profile#index"

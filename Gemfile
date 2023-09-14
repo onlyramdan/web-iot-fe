@@ -18,6 +18,10 @@ gem 'httparty'
 #toast
 gem 'toastr-rails'
 
+#axlsx
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
 #font-awesome-rails
 gem "font-awesome-rails"
 

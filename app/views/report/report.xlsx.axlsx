@@ -1,0 +1,25 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "monitoring") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row %w(no tanggal jam suhu kelembaban kebisingan lux debu amonia alat)
+  # each user is a row on your spreadsheet
+  @no = 0
+
+  @data_xlsx.each do |data|
+    @no = @no+1
+
+    sheet.add_row [
+                    @no, 
+                    data['tanggal'],
+                    data['jam'],
+                    data['suhu'],
+                    data['kelembaban'],
+                    data['kebisingan'],
+                    data['lux'],
+                    data['debu'],
+                    data['amonia'],
+                    data['alat'],
+                  ]
+  end
+end

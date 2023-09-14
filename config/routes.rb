@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resource :profile
 
   get "/report" => "report#index"
+  post "/aksi_report" => "report#report"
   resource :report
 
   get "/signup" => "signup#index"

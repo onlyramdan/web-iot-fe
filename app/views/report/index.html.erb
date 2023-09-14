@@ -2,6 +2,20 @@
  thead tr td{
    background-color: rgba(13, 110, 253, 0.7) !important;
  }
+  form label{
+    margin-left: 20px;
+  }
+  #data, #form {
+    scroll-margin-top: 100%;
+  }
+  @media (min-width: 768px){
+    .row input{
+      width: 500px;
+    }
+    .row select{
+      width: 500px;
+    }
+  }
   @media (max-width: 767px) {
   .table-responsive {
     overflow-x: auto;
@@ -42,7 +56,8 @@
                 <thead class="thead">
                   <tr>
                     <td>No.</td>
-                    <td>Waktu</td>
+                    <td>Tanggal</td>
+                    <td>Jam</td>
                     <td>Suhu</td>
                     <td>kelembaban</td>
                     <td>Kebisingan</td>
@@ -59,7 +74,8 @@
                 <% @data.each_with_index  do |data, index| %>
                   <tr>
                     <td><%= @no+= 1  %></td>
-                    <td><%= data['waktu'] %></td>
+                    <td><%= (data['waktu'].to_time).strftime("%Y-%m-%d")%></td>
+                    <td><%= (data['waktu'].to_time).strftime("%H:%M:%S")%></td>
                     <td><%= data['suhu'] %></td>
                     <td><%= data['kelembaban'] %></td>
                     <td><%= data['kebisingan'] %></td>
@@ -85,8 +101,17 @@
         <div class="tab-pane" id="repot" role="tabpanel" aria-labelledby="repot-tab">
           <div class="row">
             <div class="col text-start">
-              <br>
-               repot data
+              <form id="form-data" action="/aksi_report" method="post">
+                <div class="mb-3">
+                  <label for="tgl_mulai" class="form-label ">Tanggal Mulai</label>
+                  <input type="date" id="tgl_mulai" class="form-control" name="tgl_mulai">
+                </div>
+                <div class="mb-3">
+                  <label for="tgl_akhir" class="form-label ">Tanggal Akhir</label>
+                  <input type="date" id="tgl_akhir" class="form-control" name="tgl_akhir">
+                </div>
+                <button type="submit" class="btn btn-primary" id="aksi_simpan" title="Simpan">Export</button>
+              </form>
             </div>
           </div>
         </div>

@@ -79,6 +79,7 @@ class SettingController < ApplicationController
                 nama: params['nama'],
                 email: params['email'],
                 user_role_id: role,
+                password: "password",
                 status: params['status_user'],
             }
             url_tambah_user = "/tambahuser"

@@ -101,7 +101,7 @@
         <div class="tab-pane" id="repot" role="tabpanel" aria-labelledby="repot-tab">
           <div class="row">
             <div class="col text-start">
-              <form id="form-data" action="/aksi_report" method="post">
+              <form id="form-data">
                 <div class="mb-3">
                   <label for="tgl_mulai" class="form-label ">Tanggal Mulai</label>
                   <input type="date" id="tgl_mulai" class="form-control" name="tgl_mulai">
@@ -110,7 +110,7 @@
                   <label for="tgl_akhir" class="form-label ">Tanggal Akhir</label>
                   <input type="date" id="tgl_akhir" class="form-control" name="tgl_akhir">
                 </div>
-                <button type="submit" class="btn btn-primary" id="aksi_simpan" title="Simpan">Export</button>
+                <button  class="btn btn-primary" id="aksi_simpan" title="Simpan" onclick="csv()"> Export</button>
               </form>
             </div>
           </div>
@@ -120,6 +120,27 @@
     </div>
 </div>
 <script>
+function csv(){
+  var data_form = $('#form-data').serialize()
+  const url = `/export?${data_form}`;
+  window.location.href = url;
+// console.log(data_form);
+  // $.ajax({
+  //   url: '/export',
+  //   dataType: 'JSON',
+  //   type: 'GET',
+  //   data: data_form,
+  //   success: function (res){
+  //     console.log(res);
+  //      if(res.status == true){
+  //       window.open = url,'_blank';
+  //     }
+  //   },
+  //   error: function (res) {
+  //     console.log(res);
+  //   }
+  // })
+}
 function batal() {
   $('#data-tab').tab('show');
 }

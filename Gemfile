@@ -18,9 +18,9 @@ gem 'httparty'
 #toast
 gem 'toastr-rails'
 
-#axlsx
-gem 'caxlsx'
-gem 'caxlsx_rails'
+#csv
+gem 'csv'
+gem 'csv_builder'
 
 #font-awesome-rails
 gem "font-awesome-rails"

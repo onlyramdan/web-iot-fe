@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resource :profile
 
   get "/report" => "report#index"
-  post "/aksi_report" => "report#report"
+  get "/export" => "report#download_csv"
   resource :report
 
   get "/signup" => "signup#index"

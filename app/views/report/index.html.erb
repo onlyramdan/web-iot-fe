@@ -110,7 +110,7 @@
                   <label for="tgl_akhir" class="form-label ">Tanggal Akhir</label>
                   <input type="date" id="tgl_akhir" class="form-control" name="tgl_akhir">
                 </div>
-                <button  class="btn btn-primary" id="aksi_simpan" title="Simpan" onclick="csv()"> Export</button>
+                <button  class="btn btn-primary" id="aksi_simpan" onclick="csv()"> Export</button>
               </form>
             </div>
           </div>
@@ -120,30 +120,31 @@
     </div>
 </div>
 <script>
+
 function csv(){
-  var data_form = $('#form-data').serialize()
-  const url = `/export?${data_form}`;
-  window.location.href = url;
-// console.log(data_form);
-  // $.ajax({
-  //   url: '/export',
-  //   dataType: 'JSON',
-  //   type: 'GET',
-  //   data: data_form,
-  //   success: function (res){
-  //     console.log(res);
-  //      if(res.status == true){
-  //       window.open = url,'_blank';
-  //     }
-  //   },
-  //   error: function (res) {
-  //     console.log(res);
-  //   }
-  // })
-}
+  var data_form = $('#form-data').serialize();
+  var tgl_mulai = $("#tgl_mulai").val();
+  var tgl_akhir = $("#tgl_akhir").val();
+  if (tgl_mulai === "" && tgl_akhir === "") {
+    alert("Masukkan Tanggal Mulai dan Tanggal Akhir");
+  } else {    
+    const url = `/export?${data_form}`;
+    window.location.href = url;
+  }
+}   
+    // refrensi dengan ajax
+    // var data_form = $('#form-data').serialize()
+    //   console.log(data_form);
+    //   if (data_form ==="") {
+    //   // Tampilkan alert jika data_form kosong
+    //     alert("Data tidak ada. Silakan isi formulir terlebih dahulu.");
+    //     console.log(berhasil);
+    //   } else
+    // }
 function batal() {
   $('#data-tab').tab('show');
 }
+
 function tabrepot() {
   $('#repot-tab').tab('show');
 }

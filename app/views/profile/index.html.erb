@@ -83,6 +83,7 @@
 </div>
 
 <script>
+
 function simpan(){
   var data_form = $('#form-data').serialize()
   console.log(data_form);
@@ -111,6 +112,7 @@ function aksi(data) {
   $('#password').val(parse.password)
   $('#form-tab').tab('show'); 
 }
+
 function tabedit(data) {
   parse = JSON.parse(data);
   $('#id').val(parse.id)

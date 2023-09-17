@@ -16,6 +16,7 @@ class ReportController < ApplicationController
     end
     def download_csv
     if params['tgl_mulai'].present? && params['tgl_akhir'].present?
+      
         data = {
           tgl_mulai: params['tgl_mulai'],
           tgl_akhir: params['tgl_akhir']

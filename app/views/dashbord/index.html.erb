@@ -11,6 +11,31 @@ li{
   list-style: none;
   flex: right;
 }
+.kotak-monitoring {
+  background-color: rgba(13, 110, 253, 0.8);
+  border-radius: 10px;
+  height:100px;
+  color:white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.kotak-monitoring:hover {
+  background-color: rgba(13, 110, 253, 0.9); 
+}
+.icon-mon{
+  position: absolute;
+  top: 5px; 
+  right: 5px;
+} 
+.icon-mon svg{
+  height: 30px;
+  width: 30px;
+  fill: white;
+}
+
 </style>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -34,11 +59,20 @@ li{
           <h5 class="card-header">Suhu</h5>
           <div class="card-body">
             <div class="row">
-              <div class="col text-center">
-                <h1 class="card-title">70</h1>
+              <div class="col col-5 text-center">
+                <div class="kotak-monitoring">
+                  <div class="val-monitoring" id="suhu">
+                    <h3>
+                      30 °C
+                    </h3>
+                  </div>
+                  <div class="icon-mon" id="icon">
+                    <svg><use xlink:href="#icon-suhu"/></svg>
+                  </div>
+                </div>
               </div>
-              <div class="col">
-                 <svg><use xlink:href="#icon-suhu"/></svg>
+              <div class="col col-7">
+                <h1 class="card-title">Grafik</h1>
               </div>
             </div>
           </div>

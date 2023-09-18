@@ -62,12 +62,33 @@ li{
               <div class="col col-5 text-center">
                 <div class="kotak-monitoring">
                   <div class="val-monitoring" id="suhu">
-                    <h3>
-                      30 °C
+                    <h3 id="suhu-val">
                     </h3>
                   </div>
                   <div class="icon-mon" id="icon">
                     <svg><use xlink:href="#icon-suhu"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-7">
+                <h1 class="card-title">Grafik</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="kelmbaban"  class="card">
+          <h5 class="card-header">Kelembaban</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col col-5 text-center">
+                <div class="kotak-monitoring">
+                  <div class="val-monitoring" >
+                    <h3 id="kelembaban-val">
+                    </h3>
+                  </div>
+                  <div class="icon-mon" id="icon">
+                    <svg><use xlink:href="#icon-kelembaban"/></svg>
                   </div>
                 </div>
               </div>
@@ -168,7 +189,31 @@ li{
         </div>
       </div>
     
-    
-    
     </div>
+
+    <script>
+    function getDataFromMQTT() {
+        $.ajax({
+            url: '/mqtt/sub', // Ganti URL sesuai dengan endpoint Anda
+            type: 'GET',
+            dataType: 'json',
+            success: function(res) {
+                // Data berhasil diambil dari server MQTT
+                // Lakukan sesuatu dengan data, misalnya memperbarui tampilan halaman
+                const suhu = res.suhu;
+                const kelembaban = res.kelembaban;
+                $("#suhu-val").text(`${suhu} °C`);
+                $("#kelembaban-val").text(`${kelembaban}%`);
+            },
+            error: function(xhr, status, error) {
+                // Penanganan kesalahan jika ada
+                console.error(error);
+            }
+        });
+      }
+
+// Panggil fungsi getDataFromMQTT secara berkala (misalnya setiap 5 detik)
+setInterval(getDataFromMQTT, 5000); // 5000 ms = 5 detik
+
+    </script>
 <%= render partial: 'components/footer' %>

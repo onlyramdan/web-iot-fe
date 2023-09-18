@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resource :login
 
   get "/dashboard" => "dashbord#index"
+  get "/mqtt/sub" =>  "dashbord#get_data_mqtt"
   resource :dashbord
 
   get "/setting" => "setting#index"

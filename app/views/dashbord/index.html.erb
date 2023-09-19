@@ -1,5 +1,6 @@
 <%= render partial: 'components/header' %>
 <%= render partial: 'components/sidebar' %>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 div.card{
   margin-bottom: 40px;
@@ -36,14 +37,21 @@ li{
   fill: white;
 }
 
+@media (max-width: 767px) {
+  .col {
+    float: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
 </style>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">ON</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">OFF</button>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
             <svg class="bi"><use xlink:href="#calendar3"/></svg>
@@ -51,15 +59,14 @@ li{
           </button>
         </div>
       </div>
-
       <%# Grafik%>
 
       <%# Akhir Grafik%>
         <div id="suhu"  class="card">
-          <h5 class="card-header">Suhu</h5>
+          <h5 class="card-header">Suhu (°C)</h5>
           <div class="card-body">
             <div class="row">
-              <div class="col col-5 text-center">
+              <div class="col col-4 text-center">
                 <div class="kotak-monitoring">
                   <div class="val-monitoring" id="suhu">
                     <h3 id="suhu-val">
@@ -70,18 +77,19 @@ li{
                   </div>
                 </div>
               </div>
-              <div class="col col-7">
-                <h1 class="card-title">Grafik</h1>
+              <div class="col col-8">
+                <canvas id="suhu-chart">
+                </canvas>
               </div>
             </div>
           </div>
         </div>
 
         <div id="kelmbaban"  class="card">
-          <h5 class="card-header">Kelembaban</h5>
+          <h5 class="card-header">Kelembaban (%)</h5>
           <div class="card-body">
             <div class="row">
-              <div class="col col-5 text-center">
+              <div class="col col-4 text-center">
                 <div class="kotak-monitoring">
                   <div class="val-monitoring" >
                     <h3 id="kelembaban-val">
@@ -92,128 +100,243 @@ li{
                   </div>
                 </div>
               </div>
-              <div class="col col-7">
+              <div class="col col-8">
+                <canvas id="kelembaban-chart">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="kebisingan"  class="card">
+          <h5 class="card-header">Kebisingan (dB)</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col col-4 text-center">
+                <div class="kotak-monitoring">
+                  <div class="val-monitoring" >
+                    <h3 id="kebisingan-val">
+                    </h3>
+                  </div>
+                  <div class="icon-mon" id="icon">
+                    <svg><use xlink:href="#icon-kebisingan"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-8">
+                 <canvas id="kebisingan-chart">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="lux"  class="card">
+          <h5 class="card-header">Lux</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col col-4 text-center">
+                <div class="kotak-monitoring">
+                  <div class="val-monitoring" >
+                    <h3 id="lux-val">
+                    </h3>
+                  </div>
+                  <div class="icon-mon" id="icon">
+                    <svg><use xlink:href="#icon-lux"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-8">
                 <h1 class="card-title">Grafik</h1>
               </div>
             </div>
           </div>
         </div>
 
-      <div id="kelembaban" class="card">
-        <h5  class="card-header">Kelembaban</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div id="debu"  class="card">
+          <h5 class="card-header">Debu</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col col-4 text-center">
+                <div class="kotak-monitoring">
+                  <div class="val-monitoring" >
+                    <h3 id="debu-val">
+                    </h3>
+                  </div>
+                  <div class="icon-mon" id="icon">
+                    <svg><use xlink:href="#icon-debu"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-8">
+                <h1 class="card-title">Grafik</h1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div id="kebisingan" class="card">
-        <h5 class="card-header">Kebisingan</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div id="amonia"  class="card">
+          <h5 class="card-header">Debu</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col col-4 text-center">
+                <div class="kotak-monitoring">
+                  <div class="val-monitoring" >
+                    <h3 id="amonia-val">
+                    </h3>
+                  </div>
+                  <div class="icon-mon" id="icon">
+                    <svg><use xlink:href="#icon-amonia"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-8">
+                <h1 class="card-title">Grafik</h1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div id="lux" class="card">
-        <h5 class="card-header">Lux</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="debu" class="card">
-        <h5  class="card-header">Debu</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="amonia"class="card">
-        <h5  class="card-header">Amonia</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="col">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    
     </div>
 
     <script>
+
+        var suhuData = [];
+        var kelembabanData = [];
+        var kebisinganData = [];
+        var labels = [];
+
+        // Grafik Suhu
+        var suhuctx = document.getElementById('suhu-chart').getContext('2d');
+        var suhuChart = new Chart(suhuctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Suhu (°C)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: suhuData,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 50
+                    }
+                },
+                plugins:{
+                  legend: {
+                    display : false,
+                  }
+                }
+            }
+        });
+        // Grafik Kelembapan 
+        var kelembabanctx = document.getElementById('kelembaban-chart').getContext('2d');
+        var kelembabanChart = new Chart(kelembabanctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Kelembapan (%)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: kelembabanData,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 100
+                    }
+                },
+                plugins:{
+                  legend: {
+                    display : false,
+                  }
+                }
+            }
+        });
+
+        // Kebisingan
+        var kebisinganctx = document.getElementById('kebisingan-chart').getContext('2d');
+        var kebisinganChart = new Chart(kebisinganctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Kebisingan (dB)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: kebisinganData,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 100
+                    }
+                },
+                plugins:{
+                  legend: {
+                    display : false,
+                  }
+                }
+            }
+        });
+    // Get data From Mqtt
     function getDataFromMQTT() {
         $.ajax({
-            url: '/mqtt/sub', // Ganti URL sesuai dengan endpoint Anda
+            url: '/mqtt/sub', // Ganti URL sesuai dengan endpoint Anda;
             type: 'GET',
             dataType: 'json',
             success: function(res) {
                 // Data berhasil diambil dari server MQTT
-                // Lakukan sesuatu dengan data, misalnya memperbarui tampilan halaman
+                // Lakukan sesuatu dengan data, misalnya memperbarui tampilan halaman;
                 const suhu = res.suhu;
                 const kelembaban = res.kelembaban;
+                const kebisingan = res.kebisingan;
                 $("#suhu-val").text(`${suhu} °C`);
-                $("#kelembaban-val").text(`${kelembaban}%`);
+                $("#kelembaban-val").text(`${kelembaban} %`);
+                $("#kebisingan-val").text(`${kebisingan} dB`);
+
+
+                const date = new Date();
+                const hours = date.getHours().toString().padStart(2, '0');
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                const formattedTime = `${hours}:${minutes}`;
+
+                labels.push(formattedTime);
+                suhuData.push(suhu);
+                kelembabanData.push(kelembaban);
+                kebisinganData.push(kebisingan);
+
+
+                if (labels.length >= 43200) {
+                    labels.shift();
+                    suhuData.shift();
+                    kelembabanData.shift();
+                    kebisinganData.shift();
+                }
+                // Perbarui grafik
+                suhuChart.update();
+                kelembabanChart.update();
+                kebisinganChart.update();
             },
             error: function(xhr, status, error) {
-                // Penanganan kesalahan jika ada
                 console.error(error);
             }
         });
       }
-
-// Panggil fungsi getDataFromMQTT secara berkala (misalnya setiap 5 detik)
-setInterval(getDataFromMQTT, 5000); // 5000 ms = 5 detik
-
+    
+    // GET Data  
+    setInterval(getDataFromMQTT, 20000); 
     </script>
 <%= render partial: 'components/footer' %>

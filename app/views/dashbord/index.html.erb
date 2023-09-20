@@ -1,6 +1,8 @@
 <%= render partial: 'components/header' %>
 <%= render partial: 'components/sidebar' %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<%# <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> %>
+
 <style>
 div.card{
   margin-bottom: 40px;
@@ -8,10 +10,12 @@ div.card{
 #suhu, #kelembaban, #kebisingan, #lux, #debu, #amonia {
   scroll-margin-top: 60px; 
 }
+
 li{
   list-style: none;
   flex: right;
 }
+
 .kotak-monitoring {
   background-color: rgba(13, 110, 253, 0.8);
   border-radius: 10px;
@@ -23,25 +27,37 @@ li{
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 .kotak-monitoring:hover {
   background-color: rgba(13, 110, 253, 0.9); 
 }
+
 .icon-mon{
   position: absolute;
   top: 5px; 
   right: 5px;
 } 
+
 .icon-mon svg{
   height: 30px;
   width: 30px;
   fill: white;
 }
-
+@media (min-width: 768px) {
+  div.kotak-monitoring {
+    height:100%;
+    width:100%;
+  }
+}
 @media (max-width: 767px) {
   .col {
     float: none;
     width: 100%;
-    margin-bottom: 20px;
+  }
+  div.kotak-monitoring{
+    margin-bottom: 25px;
+    height:50px;
+
   }
 }
 </style>
@@ -55,7 +71,7 @@ li{
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
             <svg class="bi"><use xlink:href="#calendar3"/></svg>
-            This week
+            Alat 1
           </button>
         </div>
       </div>
@@ -69,8 +85,8 @@ li{
               <div class="col col-4 text-center">
                 <div class="kotak-monitoring">
                   <div class="val-monitoring" id="suhu">
-                    <h3 id="suhu-val">
-                    </h3>
+                        <h3 id="suhu-val">
+                        </h3>
                   </div>
                   <div class="icon-mon" id="icon">
                     <svg><use xlink:href="#icon-suhu"/></svg>
@@ -196,8 +212,27 @@ li{
             </div>
           </div>
         </div>
-
     </div>
+     <script>
+     var options = {
+          series: [70],
+          chart: {
+          height: 350,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            hollow: {
+              size: '70%',
+            }
+          },
+        },
+        labels: ['Cricket'],
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
 
     <script>
 
@@ -337,6 +372,6 @@ li{
       }
     
     // GET Data  
-    setInterval(getDataFromMQTT, 20000); 
+    // setInterval(getDataFromMQTT, 20000); 
     </script>
 <%= render partial: 'components/footer' %>

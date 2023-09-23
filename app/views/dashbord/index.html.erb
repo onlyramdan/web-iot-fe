@@ -47,6 +47,9 @@ li{
     height:100%;
     width:100%;
   }
+  #class-buget{
+    margin-bottom: 15px;
+  }
 }
 @media (max-width: 767px) {
   .col {
@@ -59,160 +62,170 @@ li{
 
   }
 }
+div.btn-toolbar{
+  display: flex;
+  align-items: center;
+}
 select{
   display:inline-block;
 }
+button{
+  margin-right: 10px; 
+}
+#class-buget{
+  height: 80px;
+  
+}
 </style>
-
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <select id="status_alat" onchange="pilih_alat()" class="form-select" name="status" aria-label="Default select example">
-              <option value="off" selected>OFF - PILIH ALAT</option>
+              <option value="off" selected> OFF - PILIH ALAT</option>
           <% if @data_alat.present? %>
                 <% @data_alat.each do |alat| %>
-                          <option value="<%= alat['id'] %>"> <%= alat['nama_alat']%> </option>
+                          <option value="<%= alat['id'] %>">ON - <%= alat['nama_alat']%> </option>
                 <% end %>
             <%else%>
-                <option value="">Alat OFF</option>
+                <option value="off">Tidak Ada Alat Aktif</option>
             <% end %>
           </select>
         </div>
       </div>
-        <div id="suhu"  class="card">
-          <h5 class="card-header">Suhu (°C)</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col col-4 text-center">
-                <div class="kotak-monitoring">
-                  <div class="val-monitoring" id="suhu">
-                        <h3 id="suhu-val">
-                        </h3>
-                  </div>
-                  <div class="icon-mon" id="icon">
-                    <svg><use xlink:href="#icon-suhu"/></svg>
-                  </div>
-                </div>
-              </div>
-              <div class="col col-8">
-                <canvas id="suhu-chart">
-                </canvas>
-              </div>
+      <!-- Buget Monitroing -->
+      <div class="row" id="class-buget">
+        <div class="col">
+          <div class="kotak-monitoring">
+            <div class="val-monitoring" id="suhu">
+                  <h4 id="suhu-val">
+                  </h4>
+            </div>
+            <div class="icon-mon" id="icon">
+              <svg><use xlink:href="#icon-suhu"/></svg>
             </div>
           </div>
         </div>
-
-        <div id="kelmbaban"  class="card">
-          <h5 class="card-header">Kelembaban (%)</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col col-4 text-center">
-                <div class="kotak-monitoring">
-                  <div class="val-monitoring" >
-                    <h3 id="kelembaban-val">
-                    </h3>
-                  </div>
-                  <div class="icon-mon" id="icon">
-                    <svg><use xlink:href="#icon-kelembaban"/></svg>
-                  </div>
-                </div>
-              </div>
-              <div class="col col-8">
-                <canvas id="kelembaban-chart">
-                </canvas>
-              </div>
+        <div class="col">
+          <div class="kotak-monitoring">
+            <div class="val-monitoring" id="suhu">
+                  <h4 id="kelembaban-val">
+                  </h4>
+            </div>
+            <div class="icon-mon" id="icon">
+              <svg><use xlink:href="#icon-kelembaban"/></svg>
             </div>
           </div>
         </div>
-
-        <div id="kebisingan"  class="card">
-          <h5 class="card-header">Kebisingan (dB)</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col col-4 text-center">
-                <div class="kotak-monitoring">
-                  <div class="val-monitoring" >
-                    <h3 id="kebisingan-val">
-                    </h3>
-                  </div>
-                  <div class="icon-mon" id="icon">
-                    <svg><use xlink:href="#icon-kebisingan"/></svg>
-                  </div>
-                </div>
+        <div class="col">
+            <div class="kotak-monitoring">
+              <div class="val-monitoring" >
+                <h3 id="kebisingan-val">
+                </h3>
               </div>
-              <div class="col col-8">
-                 <canvas id="kebisingan-chart">
-                </canvas>
+              <div class="icon-mon" id="icon">
+                <svg><use xlink:href="#icon-kebisingan"/></svg>
               </div>
+            </div>
+        </div>
+      </div>
+      <div class="row" id="class-buget">
+        <div class="col">
+          <div class="kotak-monitoring">
+            <div class="val-monitoring" >
+              <h3 id="lux-val">
+              </h3>
+            </div>
+            <div class="icon-mon" id="icon">
+              <svg><use xlink:href="#icon-lux"/></svg>
             </div>
           </div>
         </div>
-
-        <div id="lux"  class="card">
-          <h5 class="card-header">Lux</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col col-4 text-center">
-                <div class="kotak-monitoring">
-                  <div class="val-monitoring" >
-                    <h3 id="lux-val">
-                    </h3>
-                  </div>
-                  <div class="icon-mon" id="icon">
-                    <svg><use xlink:href="#icon-lux"/></svg>
-                  </div>
-                </div>
-              </div>
-              <div class="col col-8">
-                <h1 class="card-title">Grafik</h1>
-              </div>
+        <div class="col">
+          <div class="kotak-monitoring">
+            <div class="val-monitoring" >
+              <h3 id="debu-val">
+              </h3>
+            </div>
+            <div class="icon-mon" id="icon">
+              <svg><use xlink:href="#icon-debu"/></svg>
             </div>
           </div>
         </div>
-
-        <div id="debu"  class="card">
-          <h5 class="card-header">Debu</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col col-4 text-center">
-                <div class="kotak-monitoring">
-                  <div class="val-monitoring" >
-                    <h3 id="debu-val">
-                    </h3>
-                  </div>
-                  <div class="icon-mon" id="icon">
-                    <svg><use xlink:href="#icon-debu"/></svg>
-                  </div>
-                </div>
-              </div>
-              <div class="col col-8">
-                <h1 class="card-title">Grafik</h1>
-              </div>
+        <div class="col">
+          <div class="kotak-monitoring">
+            <div class="val-monitoring" >
+              <h3 id="amonia-val">
+              </h3>
+            </div>
+            <div class="icon-mon" id="icon">
+              <svg><use xlink:href="#icon-amonia"/></svg>
             </div>
           </div>
         </div>
-
-        <div id="amonia"  class="card">
-          <h5 class="card-header">Debu</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col col-4 text-center">
-                <div class="kotak-monitoring">
-                  <div class="val-monitoring" >
-                    <h3 id="amonia-val">
-                    </h3>
-                  </div>
-                  <div class="icon-mon" id="icon">
-                    <svg><use xlink:href="#icon-amonia"/></svg>
-                  </div>
-                </div>
-              </div>
-              <div class="col col-8">
-                <h1 class="card-title">Grafik</h1>
-              </div>
+      </div>
+      <!-- Akhir Buget Monitroing -->
+      <!-- Grafik Monotoring -->
+      <br>
+      <div class="row">
+        <div class="col">
+          <div id="suhu"  class="card">
+            <h5 class="card-header">Suhu (°C)</h5>
+            <div class="card-body">
+              <canvas id="suhu-chart">
+              </canvas>
             </div>
           </div>
         </div>
+        <div class="col">
+          <div id="kelmbaban"  class="card">
+            <h5 class="card-header">Kelembaban (%)</h5>
+            <div class="card-body">
+              <canvas id="kelembaban-chart">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div id="kebisingan"  class="card">
+            <h5 class="card-header">Kebisingan (dB)</h5>
+            <div class="card-body">
+              <canvas id="kebisingan-chart">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div id="lux"  class="card">
+            <h5 class="card-header">Lux</h5>
+            <div class="card-body">
+              <canvas id="lux-chart">
+              </canvas>
+            </div>
+          </div>          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div id="debu"  class="card">
+            <h5 class="card-header">Debu</h5>
+            <div class="card-body">
+              <canvas id="debu-chart">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div id="co2"  class="card">
+            <h5 class="card-header">Co2</h5>
+            <div class="card-body">
+              <canvas id="amonia-chart">
+              </canvas>
+            </div>
+          </div>          
+        </div>
+      </div>
     </div>
     <script>
         var suhuData = [];

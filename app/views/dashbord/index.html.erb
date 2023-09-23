@@ -37,7 +37,6 @@ li{
   top: 5px; 
   right: 5px;
 } 
-
 .icon-mon svg{
   height: 30px;
   width: 30px;
@@ -60,24 +59,26 @@ li{
 
   }
 }
+select{
+  display:inline-block;
+}
 </style>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">ON</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">OFF</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-            <svg class="bi"><use xlink:href="#calendar3"/></svg>
-            Alat 1
-          </button>
+          <select id="status_alat" onchange="pilih_alat()" class="form-select" name="status" aria-label="Default select example">
+              <option value="off" selected>OFF - PILIH ALAT</option>
+          <% if @data_alat.present? %>
+                <% @data_alat.each do |alat| %>
+                          <option value="<%= alat['id'] %>"> <%= alat['nama_alat']%> </option>
+                <% end %>
+            <%else%>
+                <option value="">Alat OFF</option>
+            <% end %>
+          </select>
         </div>
       </div>
-      <%# Grafik%>
-
-      <%# Akhir Grafik%>
         <div id="suhu"  class="card">
           <h5 class="card-header">Suhu (°C)</h5>
           <div class="card-body">
@@ -213,29 +214,7 @@ li{
           </div>
         </div>
     </div>
-     <script>
-     var options = {
-          series: [70],
-          chart: {
-          height: 350,
-          type: 'radialBar',
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '70%',
-            }
-          },
-        },
-        labels: ['Cricket'],
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    </script>
-
     <script>
-
         var suhuData = [];
         var kelembabanData = [];
         var kebisinganData = [];
@@ -327,21 +306,23 @@ li{
             }
         });
     // Get data From Mqtt
-    function getDataFromMQTT() {
+    function pilih_alat() {
+      id_alat = $('#status_alat').find(":selected").val();
+      if (id_alat === 'off') {
+        return;
+      }
         $.ajax({
-            url: '/mqtt/sub', // Ganti URL sesuai dengan endpoint Anda;
+            url: '/mqtt/sub', 
             type: 'GET',
             dataType: 'json',
+            data: { topic: id_alat },
             success: function(res) {
-                // Data berhasil diambil dari server MQTT
-                // Lakukan sesuatu dengan data, misalnya memperbarui tampilan halaman;
                 const suhu = res.suhu;
                 const kelembaban = res.kelembaban;
                 const kebisingan = res.kebisingan;
                 $("#suhu-val").text(`${suhu} °C`);
                 $("#kelembaban-val").text(`${kelembaban} %`);
                 $("#kebisingan-val").text(`${kebisingan} dB`);
-
 
                 const date = new Date();
                 const hours = date.getHours().toString().padStart(2, '0');
@@ -352,7 +333,6 @@ li{
                 suhuData.push(suhu);
                 kelembabanData.push(kelembaban);
                 kebisinganData.push(kebisingan);
-
 
                 if (labels.length >= 43200) {
                     labels.shift();
@@ -369,9 +349,7 @@ li{
                 console.error(error);
             }
         });
-      }
-    
-    // GET Data  
-    // setInterval(getDataFromMQTT, 20000); 
+      } 
+       setInterval(pilih_alat,20000);
     </script>
 <%= render partial: 'components/footer' %>

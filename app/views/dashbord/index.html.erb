@@ -415,88 +415,99 @@ button{
         });
     // Get data From Mqtt
     var intervalId;
+    var id_alat;
+      function get_data() {
+        id_alat = $('#status_alat').find(":selected").val();
+        if (id_alat === 'off' || id_alat === undefined || id_alat === "1") {
+          console.log("off");
+          console.log(id_alat);
+          stopInterval();
+          return;
+        };
+         $.ajax({
+              url: '/mqtt/sub', 
+              type: 'GET',
+              dataType: 'json',
+              data: { topic: id_alat },
+              success: function(res) {
+                  const suhu = res.suhu;
+                  const kelembaban = res.kelembaban;
+                  const kebisingan = res.kebisingan;
+                  const lux = res.lux;
+                  const debu = res.debu;
+                  const amonia = res.amonia;
+                  $("#suhu-val").text(`${suhu} °C`);
+                  $("#kelembaban-val").text(`${kelembaban} %`);
+                  $("#kebisingan-val").text(`${kebisingan} dB`);
+                  $("#lux-val").text(`${lux} lx`);
+                  $("#debu-val").text(`${debu}`);
+                  $("#amonia-val").text(`${amonia}`);
+  
+  
+                  const date = new Date();
+                  const hours = date.getHours().toString().padStart(2, '0');
+                  const minutes = date.getMinutes().toString().padStart(2, '0');
+                  const formattedTime = `${hours}:${minutes}`;
+  
+                  labels.push(formattedTime);
+                  suhuData.push(suhu);
+                  kelembabanData.push(kelembaban);
+                  kebisinganData.push(kebisingan);
+                  luxData.push(lux);
+                  debuData.push(debu);
+                  amoniaData.push(amonia);
+  
+                  if (labels.length >= 43200) {
+                      labels.shift();
+                      suhuData.shift();
+                      kelembabanData.shift();
+                      kebisinganData.shift();
+                      luxData.shift();
+                      debuData.shift();
+                      amoniaData.shift();
+                  }
+                  // Perbarui grafik
+                  suhuChart.update();
+                  kelembabanChart.update();
+                  kebisinganChart.update();
+                  luxChart.update();
+                  debuChart.update();
+                  amoniaChart.update();
+                  // SET interval
+              },
+              error: function(xhr, status, error) {
+                  console.error(error);
+              }
+          });
+      }
+    // Start Interval
     function startInterval() {
-      intervalId = setInterval(pilih_alat, 20000);
+      intervalId = setInterval(function() {
+        if (id_alat === 'off' || id_alat === undefined || id_alat === "1") {
+          stopInterval();
+        } else {
+          get_data();
+        }
+      }, 20000);
     }
     // Fungsi untuk menghentikan interval ketika pindah halaman
     function stopInterval() {
       clearInterval(intervalId);
     }
-    function get_data() {
-       $.ajax({
-            url: '/mqtt/sub', 
-            type: 'GET',
-            dataType: 'json',
-            data: { topic: id_alat },
-            success: function(res) {
-                const suhu = res.suhu;
-                const kelembaban = res.kelembaban;
-                const kebisingan = res.kebisingan;
-                const lux = res.lux;
-                const debu = res.debu;
-                const amonia = res.amonia;
-                $("#suhu-val").text(`${suhu} °C`);
-                $("#kelembaban-val").text(`${kelembaban} %`);
-                $("#kebisingan-val").text(`${kebisingan} dB`);
-                $("#lux-val").text(`${lux} lx`);
-                $("#debu-val").text(`${debu}`);
-                $("#amonia-val").text(`${amonia}`);
-
-
-                const date = new Date();
-                const hours = date.getHours().toString().padStart(2, '0');
-                const minutes = date.getMinutes().toString().padStart(2, '0');
-                const formattedTime = `${hours}:${minutes}`;
-
-                labels.push(formattedTime);
-                suhuData.push(suhu);
-                kelembabanData.push(kelembaban);
-                kebisinganData.push(kebisingan);
-                luxData.push(lux);
-                debuData.push(debu);
-                amoniaData.push(amonia);
-
-                if (labels.length >= 43200) {
-                    labels.shift();
-                    suhuData.shift();
-                    kelembabanData.shift();
-                    kebisinganData.shift();
-                    luxData.shift();
-                    debuData.shift();
-                    amoniaData.shift();
-                }
-                // Perbarui grafik
-                suhuChart.update();
-                kelembabanChart.update();
-                kebisinganChart.update();
-                luxChart.update();
-                debuChart.update();
-                amoniaChart.update();
-                // SET interval
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
     function pilih_alat() {
       id_alat = $('#status_alat').find(":selected").val();
+      
       if (id_alat === 'off') {
-        console.log(intervalId);
-        stopInterval();
-        return;
-      } else if (id_alat !== undefined && id_alat !== "1" ) {
-        console.log("aktif");
-        console.log(id_alat);
-        console.log(intervalId);
+        console.log("OFF");
+        stopInterval(); // Hentikan interval jika alat dipilih sebagai "OFF".
+      } else if (id_alat !== undefined && id_alat !== "1") {
         get_data();
+        console.log("Mulai");
+        startInterval();
       } else {
-        console.log("non aktif");
-        console.log(intervalId);
-        stopInterval();
-        return;
+        console.log("STOP");
+        stopInterval(); // Hentikan interval jika id alat tidak valid.
       }
-    }  
-    startInterval();
+    }
     </script>
 <%= render partial: 'components/footer' %>

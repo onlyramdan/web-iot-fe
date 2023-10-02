@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get "/dashboard" => "dashbord#index"
   get "/mqtt/sub" =>  "dashbord#get_data_mqtt"
+  get "/control" => "dashbord#control"
   resource :dashbord
 
   get "/setting" => "setting#index"

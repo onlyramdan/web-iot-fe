@@ -16,4 +16,6 @@ class DashbordController < ApplicationController
             render json: @data_mqtt
         end
     end
+    def control
+    end
 end

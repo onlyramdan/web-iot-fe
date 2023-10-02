@@ -1,7 +1,6 @@
 <%= render partial: 'components/header' %>
 <%= render partial: 'components/sidebar' %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<%# <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> %>
 
 <style>
 div.card{
@@ -61,6 +60,14 @@ li{
     height:50px;
 
   }
+  h4 {
+    font-size:16px;
+  }
+  .icon-mon svg{
+    height: 20px;
+    width: 20px;
+    fill: white;
+  }
 }
 div.btn-toolbar{
   display: flex;
@@ -73,22 +80,21 @@ button{
   margin-right: 10px; 
 }
 #class-buget{
-  height: 80px;
-  
+  height: 80px; 
 }
 </style>
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <select id="status_alat" onchange="pilih_alat()" class="form-select" name="status" aria-label="Default select example">
-              <option value="off" selected> OFF - PILIH ALAT</option>
-          <% if @data_alat.present? %>
-                <% @data_alat.each do |alat| %>
-                          <option value="<%= alat['id'] %>">ON - <%= alat['nama_alat']%> </option>
-                <% end %>
-            <%else%>
-                <option value="off">Tidak Ada Alat Aktif</option>
-            <% end %>
+          <select id="status_alat" onchange="pilih_alat()" class="form-select">
+                <option value="off" selected> OFF - PILIH ALAT</option>
+            <% if @data_alat.present? %>
+                  <% @data_alat.each do |alat| %>
+                            <option value="<%= alat['id'] %>" >ON - <%= alat['nama_alat']%> </option>
+                  <% end %>
+              <%else%>
+                  <option value="off">Tidak Ada Alat Aktif</option>
+              <% end %>
           </select>
         </div>
       </div>
@@ -119,8 +125,8 @@ button{
         <div class="col">
             <div class="kotak-monitoring">
               <div class="val-monitoring" >
-                <h3 id="kebisingan-val">
-                </h3>
+                <h4 id="kebisingan-val">
+                </h4>
               </div>
               <div class="icon-mon" id="icon">
                 <svg><use xlink:href="#icon-kebisingan"/></svg>
@@ -132,8 +138,8 @@ button{
         <div class="col">
           <div class="kotak-monitoring">
             <div class="val-monitoring" >
-              <h3 id="lux-val">
-              </h3>
+              <h4 id="lux-val">
+              </h4>
             </div>
             <div class="icon-mon" id="icon">
               <svg><use xlink:href="#icon-lux"/></svg>
@@ -143,8 +149,8 @@ button{
         <div class="col">
           <div class="kotak-monitoring">
             <div class="val-monitoring" >
-              <h3 id="debu-val">
-              </h3>
+              <h4 id="debu-val">
+              </h4>
             </div>
             <div class="icon-mon" id="icon">
               <svg><use xlink:href="#icon-debu"/></svg>
@@ -154,8 +160,8 @@ button{
         <div class="col">
           <div class="kotak-monitoring">
             <div class="val-monitoring" >
-              <h3 id="amonia-val">
-              </h3>
+              <h4 id="amonia-val">
+              </h4>
             </div>
             <div class="icon-mon" id="icon">
               <svg><use xlink:href="#icon-amonia"/></svg>
@@ -231,6 +237,9 @@ button{
         var suhuData = [];
         var kelembabanData = [];
         var kebisinganData = [];
+        var luxData = [];
+        var debuData = [];
+        var amoniaData = [];
         var labels = [];
 
         // Grafik Suhu
@@ -318,13 +327,103 @@ button{
                 }
             }
         });
+
+        // lux
+        var luxctx = document.getElementById('lux-chart').getContext('2d');
+        var luxChart = new Chart(luxctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'lux (lx)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: luxData,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 100
+                    }
+                },
+                plugins:{
+                  legend: {
+                    display : false,
+                  }
+                }
+            }
+        });
+
+        // debu
+        var debuctx = document.getElementById('debu-chart').getContext('2d');
+        var debuChart = new Chart(debuctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'debu',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: debuData,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 100
+                    }
+                },
+                plugins:{
+                  legend: {
+                    display : false,
+                  }
+                }
+            }
+        });
+        // debu
+        var amoniactx = document.getElementById('amonia-chart').getContext('2d');
+        var amoniaChart = new Chart(amoniactx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Co2',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: amoniaData,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 100
+                    }
+                },
+                plugins:{
+                  legend: {
+                    display : false,
+                  }
+                }
+            }
+        });
     // Get data From Mqtt
-    function pilih_alat() {
-      id_alat = $('#status_alat').find(":selected").val();
-      if (id_alat === 'off') {
-        return;
-      }
-        $.ajax({
+    var intervalId;
+    function startInterval() {
+      intervalId = setInterval(pilih_alat, 20000);
+    }
+    // Fungsi untuk menghentikan interval ketika pindah halaman
+    function stopInterval() {
+      clearInterval(intervalId);
+    }
+    function get_data() {
+       $.ajax({
             url: '/mqtt/sub', 
             type: 'GET',
             dataType: 'json',
@@ -333,9 +432,16 @@ button{
                 const suhu = res.suhu;
                 const kelembaban = res.kelembaban;
                 const kebisingan = res.kebisingan;
+                const lux = res.lux;
+                const debu = res.debu;
+                const amonia = res.amonia;
                 $("#suhu-val").text(`${suhu} °C`);
                 $("#kelembaban-val").text(`${kelembaban} %`);
                 $("#kebisingan-val").text(`${kebisingan} dB`);
+                $("#lux-val").text(`${lux} lx`);
+                $("#debu-val").text(`${debu}`);
+                $("#amonia-val").text(`${amonia}`);
+
 
                 const date = new Date();
                 const hours = date.getHours().toString().padStart(2, '0');
@@ -346,23 +452,51 @@ button{
                 suhuData.push(suhu);
                 kelembabanData.push(kelembaban);
                 kebisinganData.push(kebisingan);
+                luxData.push(lux);
+                debuData.push(debu);
+                amoniaData.push(amonia);
 
                 if (labels.length >= 43200) {
                     labels.shift();
                     suhuData.shift();
                     kelembabanData.shift();
                     kebisinganData.shift();
+                    luxData.shift();
+                    debuData.shift();
+                    amoniaData.shift();
                 }
                 // Perbarui grafik
                 suhuChart.update();
                 kelembabanChart.update();
                 kebisinganChart.update();
+                luxChart.update();
+                debuChart.update();
+                amoniaChart.update();
+                // SET interval
             },
             error: function(xhr, status, error) {
                 console.error(error);
             }
         });
-      } 
-       setInterval(pilih_alat,20000);
+    }
+    function pilih_alat() {
+      id_alat = $('#status_alat').find(":selected").val();
+      if (id_alat === 'off') {
+        console.log(intervalId);
+        stopInterval();
+        return;
+      } else if (id_alat !== undefined && id_alat !== "1" ) {
+        console.log("aktif");
+        console.log(id_alat);
+        console.log(intervalId);
+        get_data();
+      } else {
+        console.log("non aktif");
+        console.log(intervalId);
+        stopInterval();
+        return;
+      }
+    }  
+    startInterval();
     </script>
 <%= render partial: 'components/footer' %>

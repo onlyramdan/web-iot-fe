@@ -11,4 +11,10 @@ module DashbordHelper
             :body => data,
             verify: false)   
     end 
+    def self.req_get_body(url, data)
+        url = ENV['API_IoT']+url
+        res = HTTParty.get(url,
+            :body => data,
+            verify: false)   
+    end 
 end

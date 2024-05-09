@@ -16,7 +16,6 @@ class ReportController < ApplicationController
     end
     def download_csv
     if params['tgl_mulai'].present? && params['tgl_akhir'].present?
-      
         data = {
           tgl_mulai: params['tgl_mulai'],
           tgl_akhir: params['tgl_akhir']
@@ -28,7 +27,7 @@ class ReportController < ApplicationController
         filename = "report.csv"
         # Tell Rack to stream the content
         headers.delete("Content-Length")
-
+        
         # Don't cache anything from this generated endpoint
         headers["Cache-Control"] = "no-cache"
 
@@ -49,9 +48,9 @@ class ReportController < ApplicationController
     end
     def parse_report(data_csv)
         Enumerator.new do |row|
-            row << CSV.generate_line(['no','tanggal','jam','suhu','kelembaban','kebisingan','lux', 'debu', 'amonia', 'alat'],col_sep: ";")
+            row << CSV.generate_line(['no','tanggal','jam','suhu','kelembaban', 'air Quality', 'alat'],col_sep: ";")
             if data_csv.present?
-                no = 0
+                no = 1
                 data_csv.each do |data|
                     row << CSV.generate_line([
                     no,
@@ -59,10 +58,7 @@ class ReportController < ApplicationController
                     data['jam'],
                     data['suhu'],
                     data['kelembaban'],
-                    data['kebisingan'],
-                    data['lux'],
-                    data['debu'],
-                    data['amonia'],
+                    data['airQuality'],
                     data['alat'],
                     ], col_sep: ";" ) 
                     no += 1

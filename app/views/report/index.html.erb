@@ -59,11 +59,8 @@
                     <td>Tanggal</td>
                     <td>Jam</td>
                     <td>Suhu</td>
-                    <td>kelembaban</td>
-                    <td>Kebisingan</td>
-                    <td>lux</td>
-                    <td>Debu</td>
-                    <td>Amonia</td>
+                    <td>Kelembaban</td>
+                    <td>Air Quality</td>
                     <td>Alat</td>
                   </tr>
                 </thead>
@@ -78,10 +75,7 @@
                     <td><%= (data['waktu'].to_time).strftime("%H:%M:%S")%></td>
                     <td><%= data['suhu'] %></td>
                     <td><%= data['kelembaban'] %></td>
-                    <td><%= data['kebisingan'] %></td>
-                    <td><%= data['lux'] %></td>
-                    <td><%= data['debu'] %></td>
-                    <td><%= data['amonia'] %></td>
+                    <td><%= data['airQuality'] %></td>
                     <td><%= data['alat'] %></td>
                   </tr>
                   <%end%>
@@ -132,15 +126,6 @@ function csv(){
     window.location.href = url;
   }
 }   
-    // refrensi dengan ajax
-    // var data_form = $('#form-data').serialize()
-    //   console.log(data_form);
-    //   if (data_form ==="") {
-    //   // Tampilkan alert jika data_form kosong
-    //     alert("Data tidak ada. Silakan isi formulir terlebih dahulu.");
-    //     console.log(berhasil);
-    //   } else
-    // }
 function batal() {
   $('#data-tab').tab('show');
 }

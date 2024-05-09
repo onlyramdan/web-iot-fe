@@ -10,17 +10,21 @@
     background-color: rgba(128, 128, 128, 0.3);
     border-radius: 10px;
   }
+  /* main */
   main {
-    margin-bottom: 320px;
+    margin-bottom: 50px;
   }
   #dashboard{
     padding-bottom:230px;
+  }
+  #b-dashboard{
+    padding-bottom: 30px;
   }
 </style>
 <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
       <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="sidebarMenuLabel">MTM Monitoring</h5>
+          <h5 class="offcanvas-title" id="sidebarMenuLabel">Perpus Monitoring</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
@@ -34,13 +38,13 @@
                 <li id="sensor-menu">
                   <a class="nav-link d-flex align-items-center gap-2" href="/dashboard">
                   <svg class="bi"><use xlink:href="#icon-amonia"/></svg>
-                    Monitoring
+                    Monitoring Realtime
                   </a>
                 </li>
                 <li id="sensor-menu">
-                  <a class="nav-link d-flex align-items-center gap-2" href="/control">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashbord/monitor_lokasi">
                   <svg class="bi"><use xlink:href="#icon-control"/></svg>
-                    Kontrol
+                    Monitoring Perlokasi
                   </a>
                 </li>
               </ul>
@@ -55,7 +59,7 @@
             <% end %>
           </ul>
           <hr class="my-3">
-          <ul class="nav flex-column mb-auto">
+          <ul id="b-dashboard" class="nav flex-column mb-auto">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="/profile">
                 <svg class="bi"><use xlink:href="#profile"/></svg>

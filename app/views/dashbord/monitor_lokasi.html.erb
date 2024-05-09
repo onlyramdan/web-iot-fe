@@ -1,0 +1,45 @@
+<%= render partial: 'components/header' %>
+<%= render partial: 'components/sidebar' %>
+<style>
+</style>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2" >Monitoring Perlokasi</h1>
+</div>
+<div class="row">
+    <% @data_monitoring_perlokasi.each do |data| %>
+    <div class="col-3 mb-3">
+        <div class="card" style="width: 100%;">
+            <div class="card-header">
+              Lokasi: <%= data["lokasi"] %>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"> 
+                <div style="float: left;">
+                    Suhu
+                </div>
+                <div style="text-align: end;">
+                    <%= data["monitoring"]["suhu"] %> C
+                </div>
+              </li>
+              <li class="list-group-item"> 
+                <div style="float: left;">
+                    Kelembapan
+                </div>
+                <div style="text-align: end;">
+                    <%= data["monitoring"]["kelembaban"] %> %
+                </div>  
+              </li>
+              <li class="list-group-item"> 
+                <div style="float: left;">
+                    Air Quality
+                </div>
+                <div style="text-align: end;">
+                    <%= data["monitoring"]["airQuality"] %> PPM
+                </div> 
+              </li>
+            </ul>
+          </div>
+    </div> 
+    <% end %>
+</div>
+<%= render partial: 'components/footer' %>

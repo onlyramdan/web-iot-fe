@@ -18,7 +18,17 @@
                     Suhu
                 </div>
                 <div style="text-align: end;">
-                    <%= data["monitoring"]["suhu"] %> C
+                    <%= data["monitoring"]["suhu"] %> C 
+                    <% suhu = data["monitoring"]["suhu"].to_f %>
+                    <% if suhu.between?(20.5, 22.8) %>
+                      <span class="badge bg-success">Sejuk-Nyaman</span>
+                    <% elsif suhu.between?(22.8, 25.8) %>
+                      <span class="badge bg-info">Nyaman-Optimal</span>
+                    <% elsif suhu.between?(25.8, 27.1) %>
+                      <span class="badge bg-warning">Hampir Nyaman</span>
+                    <% else %>
+                      <span class="badge bg-danger">Tidak Nyaman</span>
+                    <% end %>
                 </div>
               </li>
               <li class="list-group-item"> 
@@ -26,7 +36,17 @@
                     Kelembapan
                 </div>
                 <div style="text-align: end;">
-                    <%= data["monitoring"]["kelembaban"] %> %
+                    <%= data["monitoring"]["kelembaban"] %> % 
+                    <% kelembaban = data["monitoring"]["kelembaban"].to_f %>
+                    <% if kelembaban.between?(50, 80) %>
+                      <span class="badge bg-success">Sejuk-Nyaman</span>
+                    <% elsif kelembaban == 70 %>
+                      <span class="badge bg-info">Nyaman-Optimal</span>
+                    <% elsif kelembaban.between?(60, 70) %>
+                      <span class="badge bg-warning">Hampir Nyaman</span>
+                    <% else %>
+                      <span class="badge bg-danger">Tidak Nyaman</span>
+                    <% end %>
                 </div>  
               </li>
               <li class="list-group-item"> 
@@ -34,7 +54,24 @@
                     Air Quality
                 </div>
                 <div style="text-align: end;">
-                    <%= data["monitoring"]["airQuality"] %> PPM
+                    <%= data["monitoring"]["airQuality"] %> PPM 
+                    <% air_quality = data["monitoring"]["airQuality"].to_i %>
+                    <% if air_quality <= 600 %>
+                      <span class="badge bg-success">Nyaman</span>
+                    <% elsif air_quality <= 1000 %>
+                      <span class="badge bg-warning">Batas Maksimal</span>
+                    <% else %>
+                      <span class="badge bg-danger">Tidak Sehat</span>
+                    <% end %>
+                </div> 
+              </li>
+              <li class="list-group-item"> 
+                <div style="float: left;">
+                    Last Update
+                </div>
+                <div style="text-align: end;">
+                    <% waktu = DateTime.parse(data["waktu"]) %>
+                    <%= waktu.strftime("%d-%m-%Y %H:%M:%S") %>
                 </div> 
               </li>
             </ul>
@@ -42,4 +79,5 @@
     </div> 
     <% end %>
 </div>
+
 <%= render partial: 'components/footer' %>

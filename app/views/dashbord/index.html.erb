@@ -408,15 +408,15 @@ input:checked + .slider:before {
             inverseColors: true,
             opacityFrom: 1,
             opacityTo: 1,
-            stops: [0, 2000]
+            stops: [0, 100]
           }
         },
         stroke: {
           lineCap: 'round'
         },
-        labels: ['Air Quality'],
+        labels: ['Air Quality']
         };
-
+    
         var suhuChart = new ApexCharts(document.querySelector("#chart-suhu"), optionsSuhu);
         suhuChart.render();
         var kelembapanChart = new ApexCharts(document.querySelector("#chart-kelembapan"), optionsKelmbapan);
@@ -425,7 +425,8 @@ input:checked + .slider:before {
         var kualitasudaraChart = new ApexCharts(document.querySelector("#chart-kualitasudara"), optionskualitasUdara);
         kualitasudaraChart.render();
         
-    </script>
+    
+     </script>
     <!-- REAL-TIME CHART -->
     <script>
       var dataKelembapan = [];

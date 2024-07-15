@@ -388,7 +388,7 @@ input:checked + .slider:before {
               },
               value: {
                 formatter: function(val) {
-                  return parseInt(val);
+                  return parseInt(val*12);
                 },
                 offsetY: -3,
                 color: '#111',
@@ -476,7 +476,7 @@ input:checked + .slider:before {
           range: 10,
         },
         yaxis: {
-          max: 2000,
+          max: 1200,
           min: 0
         },
         };
@@ -555,7 +555,7 @@ input:checked + .slider:before {
                 series: [res.suhu]
               });
               kualitasudaraChart.updateOptions({
-                series: [res.airQuality]
+                series: [res.airQuality/12]
               });
               
             },
@@ -652,7 +652,7 @@ input:checked + .slider:before {
                   series: [res.suhu]
                 });
                 kualitasudaraChart.updateOptions({
-                  series: [res.airQuality]
+                  series: [res.airQuality/12]
                 });
               },
               error: function(xhr, status, error) {
